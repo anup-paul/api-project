@@ -1,0 +1,50 @@
+body
+{
+    background-color: lightgray;
+}
+.image-size
+{
+    width: 100%;
+    border-radius: 10px;
+}
+.set-food-list
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap:30px;
+}
+.design-foodItem
+{
+    
+    text-align: center;
+    
+}
+.ingredient-image-size
+{
+    width: 400px;
+}
+.search-bar
+{
+    width: 30%;
+}
+.input-section
+{
+    margin-top: 100px;
+}
+.categories-section
+{
+    margin-top: 50px;
+    width: 60%;
+    margin-left: 250px;
+    
+}
+#food-ingredient img
+{
+    border-radius: 10px;
+}
+#food-ingredient
+{
+    margin-top: 100px;
+    text-align: center;
+}
+
