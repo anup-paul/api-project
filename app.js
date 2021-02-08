@@ -1,61 +1,56 @@
 const inputCategories = document.getElementById('input-categories');
 
 //connect api with input value
-const foodCategories = () =>
+const foodCategories = () => 
 {
+    //const inputCategories = document.getElementById('input-categories');
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputCategories.value}`)
-    .then(response => response.json())
-    .then(data => displayCategories(data.meals))
+        .then(response => response.json())
+        .then(data => displayCategories(data.meals))
+        .catch(error => displayError("Something went wrong try again later"));
 }
 
 
 //this function display food categories
-const displayCategories = categories =>
-{
-    console.log(categories);
-    if(inputCategories.value != categories[0].strCategory)
-    {
+const displayCategories = categories => {
+
+    if (inputCategories.value != categories[0].strCategory) {
         alert("Enter valid food name and food category name should be start with capital latter");
     }
-   else
-   {
+    else {
         const allFoodItem = document.getElementById('food-item-list');
-        console.log(categories);
-        categories.forEach(foodList => 
-            {
-                const foodItem = document.createElement('div');
-                foodItem.className = "design-foodItem";
-                foodItem.innerHTML = `
+        allFoodItem.innerHTML = "";
+        categories.forEach(foodList => {
+            const foodItem = document.createElement('div');
+            foodItem.className = "design-foodItem";
+            foodItem.innerHTML = `
                 <img class = "image-size" src = ${foodList.strMealThumb}>
-                <h4>${foodList. strMeal}</h4>
+                <h4>${foodList.strMeal}</h4>
                 `
-                allFoodItem.appendChild(foodItem);
-                foodItem.addEventListener('click',function()
-                {
-                    foodDetails(foodList.strMeal);
-                })
-            });
-   }
-        
+            allFoodItem.appendChild(foodItem);
+            foodItem.addEventListener('click', function () {
+                foodDetails(foodList.strMeal);
+            })
+        });
+    }
+
 }
 
 
 //this api call single food name
-const foodDetails = (foodName) =>
-{
-   fetch (`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
-   .then(response => response.json())
-   .then(data => displayFoodDetails(data.meals));
+const foodDetails = (foodName) => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
+        .then(response => response.json())
+        .then(data => displayFoodDetails(data.meals))
+        .catch(error => displayError("Something went wrong try again later"));
 }
 
 
 //this function about food ingredient
-const displayFoodDetails = food =>
-{
-    console.log(food);
-   
+const displayFoodDetails = food => {
+
     food.forEach(foodIngredient => {
-        console.log(foodIngredient);
+
         const foodIngredientId = document.getElementById('food-ingredient');
         foodIngredientId.innerHTML = `
         <img class = "ingredient-image-size" src = ${foodIngredient.strMealThumb}>
@@ -75,4 +70,9 @@ const displayFoodDetails = food =>
 }
 
 
-
+//error function
+const displayError = error =>
+{
+    const errorTag = document.getElementById('error-message');
+    errorTag.innerText = error;
+}
